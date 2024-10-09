@@ -2,6 +2,7 @@ import {
   ViroARScene,
   ViroARSceneNavigator,
   ViroText,
+  Viro3DObject,
   ViroTrackingReason,
   ViroTrackingStateConstants,
 } from "@reactvision/react-viro";
@@ -11,7 +12,7 @@ import { StyleSheet } from "react-native";
 const HelloWorldSceneAR = () => {
   const [text, setText] = useState("Initializing AR...");
 
-  function onInitialized(state: any, reason: ViroTrackingReason) {
+  function onInitialized(state, reason) {
     console.log("onInitialized", state, reason);
     if (state === ViroTrackingStateConstants.TRACKING_NORMAL) {
       setText("Hello World!");
@@ -22,11 +23,12 @@ const HelloWorldSceneAR = () => {
 
   return (
     <ViroARScene onTrackingUpdated={onInitialized}>
-      <ViroText
-        text={text}
-        scale={[0.5, 0.5, 0.5]}
-        position={[0, 0, -1]}
-        style={styles.helloWorldTextStyle}
+
+      <Viro3DObject
+        source={require('./assets/slime.obj')}
+        position={[0, 0, -1]} // Adjust the position as needed
+        scale={[1, 1, 1]} // Scale it appropriately
+        type="OBJ"
       />
     </ViroARScene>
   );
